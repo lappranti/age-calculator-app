@@ -1,0 +1,272 @@
+//### Colors
+$Black: #151515;
+$Purple: #854dff;
+$White: #ffffff;
+$Light-Grey: #f0f0f0;
+$Grey: #716f6f;
+$Line: #dcdcdc;
+$Red: #ff5959;
+
+//### Shadow
+@mixin shadow1 {
+  box-shadow: 0px 32px 56px rgba(0, 0, 0, 0.15);
+}
+@mixin shadow2 {
+  box-shadow: 0px 32px 56px rgba(140, 68, 45, 0.1);
+}
+
+//### Typograpgy
+@mixin typo($type) {
+  @if ($type== "h-l") {
+    font-family: "Poppins";
+    font-style: italic;
+    font-weight: 800;
+    font-size: 104px;
+    line-height: 110%;
+    /* or 114px */
+
+    letter-spacing: -0.02em;
+  } @else if($type== "h-m") {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 48px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+  } @else if($type== "h-s") {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    /* identical to box height */
+
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  } @else if($type== "b") {
+    font-family: "Poppins";
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+
+//###############################//
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: $Light-Grey;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(80px + 2.5vw) 24px 0;
+  transition: padding 0.5s ease-in-out;
+
+  @media only screen and (max-width: 320px) {
+    padding: 24px;
+    min-height: 100vh;
+  }
+}
+
+.main-content {
+  align-self: flex-start;
+  width: calc(840 / 16) * 1rem;
+  background-color: $White;
+  border-radius: 24px 24px 200px 24px;
+  padding: 56px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  @media only screen and (max-width: 550px) {
+    padding: 48px 24px;
+  }
+}
+
+.saisi-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.errorMessage {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #ff5959;
+}
+
+.saisi-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  @media only screen and (max-width: 500px) {
+    gap: 12px;
+  }
+
+  &__item {
+    max-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &.invalid {
+      .text {
+        color: $Red;
+      }
+
+      input {
+        border: 1px solid $Red;
+      }
+    }
+  }
+
+  .text {
+    @include typo(("h-s"));
+    color: $Grey;
+    font-style: normal;
+
+    @media only screen and (max-width: 400px) {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 18px;
+      /* identical to box height */
+
+      letter-spacing: 0.25em;
+    }
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    padding: 12px 24px;
+
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    outline: none;
+
+    @include typo(("h-m"));
+    font-style: normal;
+    color: #151515;
+
+    &::placeholder {
+      @include typo(("h-m"));
+      font-style: normal;
+      color: #15151550;
+    }
+
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      border: 1px solid $Purple;
+    }
+
+    @media only screen and (max-width: 500px) {
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 38px;
+      /* identical to box height */
+
+      letter-spacing: 0.01em;
+
+      &::placeholder {
+        font-weight: 700;
+        font-size: 22px;
+        line-height: 38px;
+        /* identical to box height */
+
+        letter-spacing: 0.01em;
+      }
+    }
+    @media only screen and (max-width: 400px) {
+      font-size: 16px;
+      line-height: 32px;
+    }
+
+    &[type="number"]::-webkit-inner-spin-button,
+    &[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &__ligne {
+    flex: 1;
+    height: 1px;
+    background-color: $Line;
+  }
+
+  &__btn {
+    background-color: $Purple;
+    padding: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $Black;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    height: 64px;
+    justify-content: center;
+    &__btn {
+      width: 64px;
+      height: 64px;
+      padding: 20px;
+      position: absolute;
+    }
+  }
+}
+
+.resultats {
+  display: flex;
+  flex-direction: column;
+  @include typo("h-l");
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span:nth-of-type(1) {
+      color: $Purple;
+    }
+    span:nth-of-type(2) {
+      color: $Black;
+    }
+  }
+  @media only screen and (max-width: 710px) {
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 110%;
+    /* identical to box height, or 62px */
+
+    letter-spacing: -0.02em;
+  }
+  @media only screen and (max-width: 400px) {
+    gap: 24px;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 94%;
+    /* identical to box height, or 62px */
+
+    letter-spacing: -0.02em;
+  }
+}
